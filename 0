@@ -1,0 +1,2 @@
+      invoke  active_record
+   identical    db/migrate/20231209201828_addpoints_to_users.rb
