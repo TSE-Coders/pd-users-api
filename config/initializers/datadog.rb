@@ -1,5 +1,5 @@
 
-require 'ddtrace'
+# require 'ddtrace'
 
 # ------------------------ TRACER CONFIGURATION -------------------------
 ##### https://docs.datadoghq.com/tracing/trace_collection/custom_instrumentation/ruby/?tab=activespan
@@ -10,10 +10,8 @@ require 'ddtrace'
 # Datadog.configure do |c|
 
 #   c.tracing.instrument :rails
-#   ctracing.distributed_tracing = true
 #   c.service = '<YOUR_SERVICE NAME>'
 #   c.env = '<YOUR_ENV_NAME>'
-#   c.tags = { 'team' => 'TSE' }
 #
 #   c.tracing.report_hostname = true
 #   # c.tracing.test_mode.enabled = (ENV['RACK_ENV'] == 'dev')

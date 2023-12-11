@@ -13,7 +13,6 @@ require "action_text/engine"
 require "action_view/railtie"
 require "action_cable/engine"
 # require "rails/test_unit/railtie"
- require 'datadog/statsd'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -42,24 +41,26 @@ module Pdapi
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
-    # Lograge config
-    config.lograge.enabled = true
+##### ---------- Lograge parameters to prepare logs for Datadog
 
-    # This specifies to log in JSON format
-    config.lograge.formatter = Lograge::Formatters::Json.new
+    # # Lograge config
+    # config.lograge.enabled = true
 
-    ## Disables log coloration
-    config.colorize_logging = false
+    # # This specifies to log in JSON format
+    # config.lograge.formatter = Lograge::Formatters::Json.new
 
-    # Log to a dedicated file
-    config.lograge.logger = ActiveSupport::Logger.new(Rails.root.join('log', "#{Rails.env}.log"))
+    # ## Disables log coloration
+    # config.colorize_logging = false
 
-    # This is useful if you want to log query parameters
-    config.lograge.custom_options = lambda do |event|
-        { :ddsource => 'ruby',
-          :params => event.payload[:params].reject { |k| %w(controller action).include? k }
-        }
-    end
+    # # Log to a dedicated file
+    # config.lograge.logger = ActiveSupport::Logger.new(Rails.root.join('log', "#{Rails.env}.log"))
+
+    # # This is useful if you want to log query parameters
+    # config.lograge.custom_options = lambda do |event|
+    #     { :ddsource => 'ruby',
+    #       :params => event.payload[:params].reject { |k| %w(controller action).include? k }
+    #     }
+    # end
 
 
   end

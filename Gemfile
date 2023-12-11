@@ -50,6 +50,8 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
+#### Install Datadog tracer and lograge for logs styling
+
 # gem 'lograge'
 
 # gem 'ddtrace', require: 'ddtrace/auto_instrument'
