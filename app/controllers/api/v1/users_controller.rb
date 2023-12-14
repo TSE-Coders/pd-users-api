@@ -32,7 +32,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
 
-
   # PATCH/PUT /users/1
   def update
     if @user.update(user_params)

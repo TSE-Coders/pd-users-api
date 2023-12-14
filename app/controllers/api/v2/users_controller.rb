@@ -31,7 +31,14 @@ class Api::V2::UsersController < ApplicationController
     render json: @user, status: :accepted
   end
 
-def
+
+# GET /users/top
+
+    def top
+      users = User.all
+      sorted_users=users.sort.reverse
+      render json: sorted_users.first(5)
+    end
 
   # PATCH/PUT /users/1
   def update

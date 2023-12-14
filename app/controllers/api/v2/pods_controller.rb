@@ -13,6 +13,12 @@ class Api::V2::PodsController < ApplicationController
     render json: @pod
   end
 
+  # GET /indexwithpoints
+  def indexwithpoints
+    pods_points = Pod.all.map{ |pods|user.points  }
+    render json: @pods
+  end
+
   # POST /pods
   def create
     @pod = Pod.new(pod_params)

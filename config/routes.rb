@@ -4,15 +4,17 @@ Rails.application.routes.draw do
     resources :users
       get '/users', to: 'users#index'
       get '/users', to: 'users#show'
-      post '/users', to: 'users#create'
       get '/user/random', to: 'users#setRandomUser'
       post '/users', to: 'users#destroy'
+      post '/users', to: 'users#create'
+
     end
     namespace :v2 do
     resources :users, :pods, :events, :events_users
       get '/users', to: 'users#index'
-      post '/users', to: 'users#create'
       get '/user/random', to: 'users#setRandomUser'
+      get '/user/top', to: 'users#top'
+      post '/users', to: 'users#create'
       post '/users/delete', to: 'users#destroy'
       get '/pods', to: 'pods#index'
       post '/pods', to: 'pods#create'
