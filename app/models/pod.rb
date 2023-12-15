@@ -8,30 +8,5 @@ class Pod < ApplicationRecord
     score
   end
 
-  # def score_update
-
-
-  #   pods_points = Pod.all.map { |pods|pods.score}
-
-  #   pod_size= Pod.all.length
-
-  #   pod_size.times do
-
-
-
-  #     updated_pod = Pod.all.map {|pod|
-
-
-
-  #     pod.update(points:n)
-
-
-
-  #   }
-
-
-
-  # end
-
 
 end

@@ -56,6 +56,6 @@ class Api::V2::PodsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def pod_params
-      params.require(:pod).permit(:name, :pod_id)
+      params.require(:pod).permit(:name, :pod_id, :points)
     end
 end
