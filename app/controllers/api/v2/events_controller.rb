@@ -46,6 +46,6 @@ class Api::V2::EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:name, :user_id, :points)
+      params.require(:event).permit(:name, :points)
     end
 end

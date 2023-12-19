@@ -56,4 +56,6 @@ group :development do
 
 # gem 'ddtrace', require: 'ddtrace/auto_instrument'
 
+gem 'rack-cors'
+
 end
