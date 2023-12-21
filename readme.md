@@ -6,7 +6,7 @@ This is an API built with Ruby on Rails to serve as backend to the Pod Racer App
 
 * The service consist in four Active models. Three main (Pod, User, Events) and one joining (EventsUsers). 
 
-* MySql Lite as Default Database.
+* Sql Lite as Default Database.
 
 ### Relation: 
 
