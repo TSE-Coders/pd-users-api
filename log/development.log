@@ -1,0 +1,150 @@
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.0ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "environment"]]
+  [1m[36mActiveRecord::InternalMetadata Create (0.1ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ('environment', 'development', '2023-12-20 23:16:21.555315', '2023-12-20 23:16:21.555317') RETURNING "key"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUser (20231108020917)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "users" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "last_name" varchar, "pod_id" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231108020917') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreatePod (20231108020950)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "pods" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231108020950') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateEvents (20231108025503)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mCREATE TABLE "events" ("id" integer PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "points" integer, "created_at" datetime(6) NOT NULL, "updated_at" datetime(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231108025503') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to CreateJoinTableEventsUsers (20231108050354)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mCREATE TABLE "events_users" ("event_id" integer NOT NULL, "user_id" integer NOT NULL)[0m
+  [1m[35m (0.0ms)[0m  [1m[35mCREATE INDEX "index_events_users_on_event_id_and_user_id" ON "events_users" ("event_id", "user_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231108050354') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddpointsToUsers (20231209201828)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "users" ADD "points" integer DEFAULT 0[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231209201828') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddpointsToPods (20231214190315)
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  [1m[35mALTER TABLE "pods" ADD "points" integer DEFAULT 0[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20231214190315') RETURNING "version"[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Create (0.4ms)[0m  [1m[32mINSERT INTO "pods" ("name", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Containers"], ["created_at", "2023-12-20 23:16:30.048982"], ["updated_at", "2023-12-20 23:16:30.048982"], ["points", 0]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Create (0.4ms)[0m  [1m[32mINSERT INTO "pods" ("name", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Monitors"], ["created_at", "2023-12-20 23:16:30.050275"], ["updated_at", "2023-12-20 23:16:30.050275"], ["points", 0]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Create (0.3ms)[0m  [1m[32mINSERT INTO "pods" ("name", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Cloud"], ["created_at", "2023-12-20 23:16:30.051260"], ["updated_at", "2023-12-20 23:16:30.051260"], ["points", 0]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Create (0.3ms)[0m  [1m[32mINSERT INTO "pods" ("name", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "Agent"], ["created_at", "2023-12-20 23:16:30.052202"], ["updated_at", "2023-12-20 23:16:30.052202"], ["points", 0]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Create (0.3ms)[0m  [1m[32mINSERT INTO "pods" ("name", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "WebPlatform"], ["created_at", "2023-12-20 23:16:30.053165"], ["updated_at", "2023-12-20 23:16:30.053165"], ["points", 0]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Create (0.3ms)[0m  [1m[32mINSERT INTO "pods" ("name", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "APM"], ["created_at", "2023-12-20 23:16:30.054135"], ["updated_at", "2023-12-20 23:16:30.054135"], ["points", 0]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Load (0.4ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Create (0.1ms)[0m  [1m[32mINSERT INTO "users" ("name", "last_name", "pod_id", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Daniel"], ["last_name", "Calderon"], ["pod_id", 1], ["created_at", "2023-12-20 23:16:30.075061"], ["updated_at", "2023-12-20 23:16:30.075061"], ["points", 5]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Load (0.6ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Create (0.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "last_name", "pod_id", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Aldrick"], ["last_name", "Castro"], ["pod_id", 2], ["created_at", "2023-12-20 23:16:30.076903"], ["updated_at", "2023-12-20 23:16:30.076903"], ["points", 7]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Load (0.5ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mUser Create (0.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "last_name", "pod_id", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Juliana"], ["last_name", "Depp"], ["pod_id", 2], ["created_at", "2023-12-20 23:16:30.078490"], ["updated_at", "2023-12-20 23:16:30.078490"], ["points", 10]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Load (0.4ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Create (0.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "last_name", "pod_id", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Danny"], ["last_name", "Serrano"], ["pod_id", 1], ["created_at", "2023-12-20 23:16:30.079935"], ["updated_at", "2023-12-20 23:16:30.079935"], ["points", 15]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Load (0.5ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mUser Create (0.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "last_name", "pod_id", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Patrick"], ["last_name", "Liang"], ["pod_id", 1], ["created_at", "2023-12-20 23:16:30.081455"], ["updated_at", "2023-12-20 23:16:30.081455"], ["points", 12]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mPod Load (0.3ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mUser Create (0.0ms)[0m  [1m[32mINSERT INTO "users" ("name", "last_name", "pod_id", "created_at", "updated_at", "points") VALUES (?, ?, ?, ?, ?, ?) RETURNING "id"[0m  [["name", "Kevin"], ["last_name", "Gleeson"], ["pod_id", 3], ["created_at", "2023-12-20 23:16:30.083039"], ["updated_at", "2023-12-20 23:16:30.083039"], ["points", 8]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEvent Create (0.5ms)[0m  [1m[32mINSERT INTO "events" ("name", "points", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "flare"], ["points", 10], ["created_at", "2023-12-20 23:16:30.086474"], ["updated_at", "2023-12-20 23:16:30.086474"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEvent Create (0.5ms)[0m  [1m[32mINSERT INTO "events" ("name", "points", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "call"], ["points", 15], ["created_at", "2023-12-20 23:16:30.087893"], ["updated_at", "2023-12-20 23:16:30.087893"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEvent Create (0.5ms)[0m  [1m[32mINSERT INTO "events" ("name", "points", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "screenshot"], ["points", 2], ["created_at", "2023-12-20 23:16:30.089237"], ["updated_at", "2023-12-20 23:16:30.089237"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEvent Create (0.3ms)[0m  [1m[32mINSERT INTO "events" ("name", "points", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "datadog.yaml"], ["points", 1], ["created_at", "2023-12-20 23:16:30.090616"], ["updated_at", "2023-12-20 23:16:30.090616"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mEvent Create (0.3ms)[0m  [1m[32mINSERT INTO "events" ("name", "points", "created_at", "updated_at") VALUES (?, ?, ?, ?) RETURNING "id"[0m  [["name", "values.yaml"], ["points", 1], ["created_at", "2023-12-20 23:16:30.091902"], ["updated_at", "2023-12-20 23:16:30.091902"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEventsUser Create (0.0ms)[0m  [1m[32mINSERT INTO "events_users" ("event_id", "user_id") VALUES (?, ?)[0m  [["event_id", 2], ["user_id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mEventsUser Create (0.0ms)[0m  [1m[32mINSERT INTO "events_users" ("event_id", "user_id") VALUES (?, ?)[0m  [["event_id", 3], ["user_id", 2]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[36mEventsUser Create (0.0ms)[0m  [1m[32mINSERT INTO "events_users" ("event_id", "user_id") VALUES (?, ?)[0m  [["event_id", 2], ["user_id", 3]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEventsUser Create (0.0ms)[0m  [1m[32mINSERT INTO "events_users" ("event_id", "user_id") VALUES (?, ?)[0m  [["event_id", 1], ["user_id", 3]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[36mEventsUser Create (0.0ms)[0m  [1m[32mINSERT INTO "events_users" ("event_id", "user_id") VALUES (?, ?)[0m  [["event_id", 3], ["user_id", 1]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = ? LIMIT ?[0m  [["id", 4], ["LIMIT", 1]]
+  [1m[36mEvent Load (0.0ms)[0m  [1m[34mSELECT "events".* FROM "events" WHERE "events"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mEventsUser Create (0.0ms)[0m  [1m[32mINSERT INTO "events_users" ("event_id", "user_id") VALUES (?, ?)[0m  [["event_id", 1], ["user_id", 4]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[36mcommit transaction[0m
+Started GET "/api/v2/users" for ::1 at 2023-12-20 18:17:14 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V2::UsersController#index as HTML
+  [1m[36mUser Load (0.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ app/controllers/api/v2/users_controller.rb:7:in `index'
+[active_model_serializers]   [1m[36mPod Load (0.1ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/v2/users_controller.rb:7:in `index'
+[active_model_serializers]   [1m[36mPod Load (0.0ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/v2/users_controller.rb:7:in `index'
+[active_model_serializers]   [1m[36mCACHE Pod Load (0.0ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/v2/users_controller.rb:7:in `index'
+[active_model_serializers]   [1m[36mCACHE Pod Load (0.0ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/v2/users_controller.rb:7:in `index'
+[active_model_serializers]   [1m[36mCACHE Pod Load (0.0ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/v2/users_controller.rb:7:in `index'
+[active_model_serializers]   [1m[36mPod Load (0.0ms)[0m  [1m[34mSELECT "pods".* FROM "pods" WHERE "pods"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   ↳ app/controllers/api/v2/users_controller.rb:7:in `index'
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (18.12ms)
+Completed 200 OK in 52ms (Views: 39.4ms | ActiveRecord: 0.5ms | Allocations: 40960)
+
+
+Started GET "/favicon.ico" for ::1 at 2023-12-20 18:17:14 -0500
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
