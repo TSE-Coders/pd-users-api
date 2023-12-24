@@ -1,5 +1,5 @@
 
-# require 'ddtrace'
+require 'ddtrace'
 
 # ------------------------ TRACER CONFIGURATION -------------------------
 ##### https://docs.datadoghq.com/tracing/trace_collection/custom_instrumentation/ruby/?tab=activespan
@@ -7,23 +7,27 @@
 
 
 
-# Datadog.configure do |c|
+Datadog.configure do |c|
 
-#   c.tracing.instrument :rails
-#   c.service = '<YOUR_SERVICE NAME>'
-#   c.env = '<YOUR_ENV_NAME>'
-#
-#   c.tracing.report_hostname = true
-#   # c.tracing.test_mode.enabled = (ENV['RACK_ENV'] == 'dev')
+  c.agent.port = 8136
+  c.tracing.instrument :rails
+#   c.agent.host = 'localhost'
 
-####(traces and logs correlation)
-#   c.tracing.log_injection = false
+  c.service = 'pd-users-api'
+  c.env = 'dev'
+  c.version = 'v2.0.0'
 
-####(runtime metrics)
-#   c.runtime_metrics.enabled = false
-#   # c.runtime_metrics.statsd = Datadog::Statsd.new
+  c.tracing.report_hostname = true
+  # c.tracing.test_mode.enabled = (ENV['RACK_ENV'] == 'dev')
 
-####(Startup logs)
-#   c.diagnostics.startup_logs.enabled = false
-#   c.diagnostics.debug = false
-# end
+###(traces and logs correlation)
+  c.tracing.log_injection = true
+
+###(runtime metrics)
+  c.runtime_metrics.enabled = true
+  # c.runtime_metrics.statsd = Datadog::Statsd.new
+
+###(Startup logs)
+  c.diagnostics.startup_logs.enabled = false
+  c.diagnostics.debug = false
+end

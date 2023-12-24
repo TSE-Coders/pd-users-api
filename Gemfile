@@ -37,7 +37,7 @@ gem "bootsnap", require: false
 
 gem 'smarter_csv', '~> 1.1', '>= 1.1.4'
 
-# gem "dogstatsd-ruby"
+gem "dogstatsd-ruby"
 
 gem 'active_model_serializers'
 
@@ -52,9 +52,9 @@ group :development do
 
 #### Install Datadog tracer and lograge for logs styling
 
-# gem 'lograge'
+gem 'lograge'
 
-# gem 'ddtrace', require: 'ddtrace/auto_instrument'
+gem 'ddtrace', require: 'ddtrace/auto_instrument'
 
 gem 'rack-cors'
 
